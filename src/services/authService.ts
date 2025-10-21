@@ -8,8 +8,6 @@ class AuthService {
     try {
       const response = await api.post("/auth/login", data);
 
-      console.log(response.data)
-
       if (response.status === 401) {
         throw new Error("Credenciais inválidas", { cause: response.status });
       }
