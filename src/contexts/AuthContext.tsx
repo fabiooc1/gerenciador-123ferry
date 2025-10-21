@@ -1,9 +1,7 @@
 import type { UserModel } from "@/models/UserModel";
 import { userService } from "@/services/userService";
-import { AxiosError } from "axios";
 import { createContext, useEffect, useState } from "react";
-import { toast } from "sonner";
-
+import { useNavigate } from "react-router-dom";
 type AuthContextProps = {
     user: UserModel | null;
     isLoadingAuth: boolean;
@@ -15,17 +13,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<UserModel | null>(null)
     const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(false)
 
+    const navigate = useNavigate()
+
     async function loadUser() {
         try {
             setIsLoadingAuth(true)
             const userData = await userService.get()
             setUser(userData)
         } catch (error: any) {
-            if (error instanceof AxiosError && error.response?.status === 401) {
-                setUser(null)
-            } else {
-                toast.error(error.message || 'Serviço fora do ar. Tente novamente mais tarde.')
-            }
+            navigate('/login')
         } finally {
             setIsLoadingAuth(false)
         }
