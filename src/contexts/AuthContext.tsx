@@ -11,13 +11,12 @@ export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<UserModel | null>(null)
-    const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(false)
+    const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(true)
 
     const navigate = useNavigate()
 
     async function loadUser() {
         try {
-            setIsLoadingAuth(true)
             const userData = await userService.get()
             setUser(userData)
         } catch (error: any) {

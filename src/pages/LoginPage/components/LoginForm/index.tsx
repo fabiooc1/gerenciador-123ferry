@@ -41,6 +41,7 @@ export function LoginForm() {
     } catch (error: any) {
       if (error instanceof Error) {
         toast.error("Credenciais inválidas")
+        return
       }
 
       toast.error(error.message)
