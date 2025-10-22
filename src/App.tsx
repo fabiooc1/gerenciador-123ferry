@@ -4,6 +4,7 @@ import { RequireAuth } from "./components/auth/RequireAuth";
 import { LoginPage } from "./pages/LoginPage";
 import { RootLayout } from "./pages/RootLayout";
 import { AuthProvider } from "./contexts/AuthContext";
+import { FerryPage } from "./pages/FerryPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 
             <Route element={<RequireAuth />}>
               <Route path="/dashboard" element={<div>Dashboard page</div>} />
+              <Route path="/ferry" element={<FerryPage />} />
             </Route>
           </Route>
         </Routes>
