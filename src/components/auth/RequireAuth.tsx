@@ -8,8 +8,8 @@ export function RequireAuth() {
         return <div>Carregando suas informações...</div>
     }
 
-    if (!user) {
-        return <Navigate to="/login" replace />
+    if (!isLoadingAuth && !user) {
+        return <Navigate to="/auth/login" replace />
     }
 
     return <Outlet />
