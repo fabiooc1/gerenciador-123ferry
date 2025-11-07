@@ -21,7 +21,7 @@ export function LoginForm() {
 
   const form = useForm({
     resolver: zodResolver(loginFormSchema),
-    values: {
+    defaultValues: {
       email: "",
       password: "",
     },
@@ -37,14 +37,12 @@ export function LoginForm() {
         senha: data.password
       })
       
-      navigate('/dashboard')
-    } catch (error: any) {
+      navigate('/')
+    } catch (error) {
       if (error instanceof Error) {
         toast.error("Credenciais inválidas")
         return
       }
-
-      toast.error(error.message)
     } finally {
       setIsSubmittingForm(false);
     }
