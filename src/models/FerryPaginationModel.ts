@@ -1,7 +1,7 @@
 import type { FerryModel } from "./FerryModel";
-import type { PaginationMetadata } from "./PaginationMetadata";
+import type { PaginationMetadataModel } from "./PaginationMetadataModel";
 
 export interface FerryPaginationModel {
     data: FerryModel[],
-    metadata: PaginationMetadata
+    metadata: PaginationMetadataModel
 }

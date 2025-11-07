@@ -1,7 +1,7 @@
 import type { TripModel } from "@/models/TripModel";
-import type { PaginationMetadata } from "./PaginationMetadata";
+import type { PaginationMetadataModel } from "./PaginationMetadataModel";
 
 export interface TripsPaginationModel {
     data: TripModel[],
-    metadata: PaginationMetadata
+    metadata: PaginationMetadataModel
 }
