@@ -1,4 +1,4 @@
 export type PerfilModel = {
-    id: bigint;
+    id: number;
     nome: 'CLIENTE' | 'ATENDENTE' | 'ADMINISTRADOR';
 }
