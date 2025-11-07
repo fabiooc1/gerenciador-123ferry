@@ -13,10 +13,6 @@ import { useTrips } from "@/hooks/useTrips";
 export function ViagensPage() {
   const { tripsPagination, isLoading, loadTrips } = useTrips();
 
-  if (isLoading) {
-    return "carregando..."
-  }
-
   return (
     <>
       <div className="space-y-6">
@@ -27,7 +23,7 @@ export function ViagensPage() {
 
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <form className="flex items-start gap-2">
+            {/* <form className="flex items-start gap-2">
               <InputGroup>
                 <InputGroupAddon>
                   <Search />
@@ -37,7 +33,7 @@ export function ViagensPage() {
               </InputGroup>
 
               <Button variant="secondary">Pesquisar</Button>
-            </form>
+            </form> */}
 
             <FormDialog
               title="Cadastrar viagem"
@@ -54,7 +50,12 @@ export function ViagensPage() {
             </FormDialog>
           </div>
 
-          {tripsPagination?.data && <ViagensListing viagens={tripsPagination.data} />}
+          {tripsPagination?.data && (
+            <ViagensListing
+              isLoading={isLoading}
+              viagens={tripsPagination.data}
+            />
+          )}
         </div>
       </div>
     </>

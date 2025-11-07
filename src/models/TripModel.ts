@@ -8,6 +8,7 @@ export interface TripModel {
     criadaEm: string;
     atualizadaEm: string;
     criadaPorId: number;
+    quantidadeDePassageiros: number;
     rota: RouteModel
     ferry: FerryModel
 }

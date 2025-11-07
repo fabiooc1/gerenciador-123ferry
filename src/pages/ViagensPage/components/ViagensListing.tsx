@@ -1,13 +1,21 @@
+import { TableLoadingData } from "@/components/TableLoadingData";
 import { Card, CardContent } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import type { TripModel } from "@/models/TripModel";
-import { formatLogDate } from "@/utils/date";
+import { ViagemRow } from "./ViagemRow";
 
 interface ViagensListingProps {
-  viagens: TripModel[]
+  viagens: TripModel[];
+  isLoading: boolean;
 }
 
-export function ViagensListing({ viagens }: ViagensListingProps) {
+export function ViagensListing({ viagens, isLoading }: ViagensListingProps) {
   return (
     <Card className="rounded-md py-2">
       <CardContent className="px-2">
@@ -18,18 +26,17 @@ export function ViagensListing({ viagens }: ViagensListingProps) {
               <TableHead>Partida</TableHead>
               <TableHead>Chegada</TableHead>
               <TableHead>Ferry</TableHead>
+              <TableHead>Passageiros</TableHead>
+              <TableHead>Ações</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
-            {viagens.map(trip => (
-                <TableRow key={trip.id}>
-                    <TableCell>{trip.rota.nome}</TableCell>
-                    <TableCell>{formatLogDate(trip.dataPartida)}</TableCell>
-                    <TableCell>{formatLogDate(trip.dataChegada)}</TableCell>
-                    <TableCell>{trip.ferry.nome}</TableCell>
-                </TableRow>
-            ))}
+            {isLoading ? (
+              <TableLoadingData amountOfCols={5} amountOfRows={5} />
+            ) : (
+              viagens.map((trip) => <ViagemRow key={trip.id} trip={trip} />)
+            )}
           </TableBody>
         </Table>
       </CardContent>
