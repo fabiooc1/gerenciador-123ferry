@@ -1,4 +1,4 @@
-import { Home, Ship } from "lucide-react";
+import { Home, Ship, Ticket } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,10 +14,15 @@ const modules = [
     url: "/",
     icon: Home,
   },
-   {
+  {
     title: "Viagens",
     url: "/viagens",
     icon: Ship,
+  },
+  {
+    title: "Bilhetes",
+    url: "/bilhetes",
+    icon: Ticket,
   },
 ];
 
