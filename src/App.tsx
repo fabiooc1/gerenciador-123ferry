@@ -5,6 +5,7 @@ import { RequireAuth } from "./components/auth/RequireAuth";
 import { LoginPage } from "./pages/LoginPage";
 import { PanelLayout } from "./pages/PanelLayout";
 import { ViagensPage } from "./pages/ViagensPage";
+import { BilhetesPage } from "./pages/BilhetesPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route element={<PanelLayout />}>
               <Route path="/" element={<h1>Painel</h1>} />
               <Route path="/viagens" element={<ViagensPage />} />
+              <Route path="/bilhetes" element={<BilhetesPage />} />
             </Route>
           </Route>
 
