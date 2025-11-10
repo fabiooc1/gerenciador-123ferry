@@ -14,9 +14,11 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "sonner";
-import { authService } from "@/services/authService";
+import { useAuth } from "@/hooks/useAuth";
 
 export function LoginForm() {
+  const { login } = useAuth()
+
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
   const form = useForm({
@@ -27,21 +29,21 @@ export function LoginForm() {
     },
   });
 
-  const navigate = useNavigate()
+  const navigator = useNavigate();
 
   async function onLoginFormSubmit(data: LoginFormData) {
     try {
       setIsSubmittingForm(true);
-      await authService.login({
+      await login({
         login: data.email,
-        senha: data.password
-      })
-      
-      navigate('/')
+        senha: data.password,
+      });
+
+      navigator('/');
     } catch (error) {
       if (error instanceof Error) {
-        toast.error("Credenciais inválidas")
-        return
+        toast.error("Credenciais inválidas");
+        return;
       }
     } finally {
       setIsSubmittingForm(false);
