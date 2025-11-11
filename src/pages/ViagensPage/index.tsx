@@ -4,9 +4,19 @@ import { Button } from "@/components/ui/button";
 import { FormDialog } from "@/components/FormDialog";
 import { RegisterTripForm } from "./components/RegisterTripForm";
 import { useTrips } from "@/hooks/useTrips";
+import { Pagination } from "@/components/Pagination";
+import { ITEMS_PER_PAGE } from "@/constants/pagination";
 
 export function ViagensPage() {
-  const { tripsPagination, isLoading, loadTrips } = useTrips();
+  const {
+    tripsPagination,
+    isLoading,
+    currentPage,
+    itemsPerPage,
+    setItemsPerPage,
+    setCurrentPage,
+    loadTrips,
+  } = useTrips();
 
   return (
     <div className="space-y-6">
@@ -24,9 +34,9 @@ export function ViagensPage() {
                 </InputGroupAddon>
 
                 <InputGroupInput placeholder="Rota" />
-              </InputGroup>
-
-              <Button variant="secondary">Pesquisar</Button>
+                </InputGroup>
+                
+                <Button variant="secondary">Pesquisar</Button>
             </form> */}
 
           <FormDialog
@@ -48,6 +58,17 @@ export function ViagensPage() {
           isLoading={isLoading}
           viagens={tripsPagination?.data || []}
         />
+
+        {!isLoading && tripsPagination && (
+          <Pagination
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            setItemsPerPage={setItemsPerPage}
+            setCurrentPage={setCurrentPage}
+            itemsPerPageOptions={ITEMS_PER_PAGE}
+            totalPages={tripsPagination.meta.totalPaginas}
+          />
+        )}
       </div>
     </div>
   );

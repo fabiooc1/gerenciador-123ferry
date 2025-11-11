@@ -9,8 +9,6 @@ interface ViagemRowProps {
 }
 
 export function ViagemRow({ trip }: ViagemRowProps) {
-  console.log(trip)
-
   return (
     <TableRow key={trip.id}>
       <TableCell>{trip.rota.nome}</TableCell>

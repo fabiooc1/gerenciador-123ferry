@@ -10,7 +10,7 @@ export function useTrips() {
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE[0])
 
-    async function loadTrips() {
+    const loadTrips = async () => {
         try {
             setIsLoading(true)
             const tripsPaginationData = await tripService.getAll({
@@ -33,7 +33,7 @@ export function useTrips() {
 
     useEffect(() => {
         loadTrips()
-    }, [])
+    }, [currentPage, itemsPerPage])
 
     return {
         tripsPagination,
