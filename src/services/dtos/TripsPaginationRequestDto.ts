@@ -3,4 +3,5 @@ export interface TripsPaginationRequestDto {
     pageSize: number
     rotaId?: number
     dataPartida?: string
+    dataPartidaOrdem: "asc" | "desc"
 }

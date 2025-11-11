@@ -16,6 +16,7 @@ export function useTrips() {
             const tripsPaginationData = await tripService.getAll({
                 page: currentPage,
                 pageSize: itemsPerPage,
+                dataPartidaOrdem: "desc"
             })
 
             setTripsPagination(tripsPaginationData)
