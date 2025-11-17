@@ -22,7 +22,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerTripFormSchema, type RegisterTripFormData } from "./schema";
-import { withMask } from "use-mask-input";
 import { Input } from "@/components/ui/input";
 import { tripService } from "@/services/tripService";
 import { toast } from "sonner";
@@ -36,11 +35,11 @@ export function RegisterTripForm({ onSuccess }: RegisterTripFormProps) {
   const [ferries, setFerries] = useState<FerryPaginationModel | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const form = useForm({
+  const form = useForm<RegisterTripFormData>({
     resolver: zodResolver(registerTripFormSchema),
     defaultValues: {
-      ferryId: 0,
-      routeId: 0,
+      ferryValue: "",
+      routeValue: "",
       arrivalDatetime: "",
       departureDatetime: "",
     },
@@ -68,11 +67,11 @@ export function RegisterTripForm({ onSuccess }: RegisterTripFormProps) {
   async function onRegisterTrip(data: RegisterTripFormData) {
     try {
       await tripService.create({
-        rotaId: data.routeId,
-        ferryId: data.ferryId,
-        dataPartida: data.departureDatetime.toISOString(),
-        dataChegada: data.arrivalDatetime.toISOString()
-      })
+        rotaId: Number(data.routeValue),
+        ferryId: Number(data.ferryValue),
+        dataPartida: new Date(data.departureDatetime).toISOString(),
+        dataChegada: new Date(data.arrivalDatetime).toISOString(),
+      });
 
       onSuccess();
     } catch (error) {
@@ -87,12 +86,15 @@ export function RegisterTripForm({ onSuccess }: RegisterTripFormProps) {
       <Form {...form}>
         <FormField
           control={form.control}
-          name="routeId"
+          name="routeValue"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Rota*</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value.toString()}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue
                       placeholder={
@@ -117,12 +119,15 @@ export function RegisterTripForm({ onSuccess }: RegisterTripFormProps) {
 
         <FormField
           control={form.control}
-          name="ferryId"
+          name="ferryValue"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Ferry*</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value.toString()}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue
                       placeholder={
@@ -151,12 +156,8 @@ export function RegisterTripForm({ onSuccess }: RegisterTripFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Data de partida*</FormLabel>
-              <FormControl ref={withMask("99/99/9999 99:99")}>
-                <Input
-                  type="datetime-local"
-                  {...field}
-                  placeholder="DD/MM/AAAA 00:00"
-                />
+              <FormControl>
+                <Input type="datetime-local" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -169,12 +170,8 @@ export function RegisterTripForm({ onSuccess }: RegisterTripFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Data de chegada*</FormLabel>
-              <FormControl ref={withMask("99/99/9999 99:99")}>
-                <Input
-                  type="datetime-local"
-                  {...field}
-                  placeholder="DD/MM/AAAA 00:00"
-                />
+              <FormControl>
+                <Input type="datetime-local" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
